@@ -1,0 +1,73 @@
+{% extends 'catalogo/base.html' %}
+
+{% block title %}Catálogo de Productos - TechLogix S.A.{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-shop me-2"></i> Catálogo de Productos</h2>
+</div>
+
+<!-- Barra de Búsqueda y Filtros GET -->
+<div class="card card-body mb-4 shadow-sm border-0">
+    <form method="GET" class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="text" name="q" class="form-control" placeholder="Buscar por nombre..." value="{{ request.GET.q }}">
+            </div>
+        </div>
+        <div class="col-md-5">
+            <select name="categoria" class="form-select">
+                <option value="">Todas las Categorías</option>
+                {% for cat in categorias %}
+                    <option value="{{ cat.id }}" {% if request.GET.categoria == cat.id|stringformat:"i" %}selected{% endif %}>
+                        {{ cat.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2 d-grid">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-funnel-fill me-1"></i> Filtrar
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Grid de Productos -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for producto in productos %}
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <span class="badge bg-info text-dark">{{ producto.categoria.nombre }}</span>
+                        <small class="text-muted">SKU: {{ producto.sku }}</small>
+                    </div>
+                    <h5 class="card-title fw-bold mt-2">{{ producto.nombre }}</h5>
+                    <h3 class="text-primary my-3">${{ producto.precio }}</h3>
+                    <div class="mt-auto">
+                        {% if producto.stock > 0 %}
+                            <span class="badge bg-success">
+                                <i class="bi bi-check-circle me-1"></i> Stock: {{ producto.stock }} un.
+                            </span>
+                        {% else %}
+                            <span class="badge bg-danger">
+                                <i class="bi bi-x-circle me-1"></i> Agotado
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 text-muted small">
+                    Fecha ingreso: {{ producto.fecha_ingreso|date:"d/m/Y" }}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12 text-center py-5">
+            <i class="bi bi-inbox display-1 text-muted d-block"></i>
+            <p class="text-muted fs-5 mt-3">No existen productos registrados que coincidan con el criterio.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

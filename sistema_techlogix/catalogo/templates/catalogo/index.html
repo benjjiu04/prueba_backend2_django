@@ -1,0 +1,56 @@
+{% extends 'catalogo/base.html' %}
+
+{% block title %}Inicio - TechLogix S.A.{% endblock %}
+
+{% block content %}
+<!-- Banner de Bienvenida -->
+<div class="p-5 mb-4 bg-white rounded-3 shadow-sm border">
+    <div class="container-fluid py-2">
+        <h1 class="display-5 fw-bold text-dark">Bienvenido a TechLogix S.A.</h1>
+        <p class="col-md-9 fs-5 text-muted mt-3">
+            Somos una empresa líder en distribución de tecnología e insumos informáticos. Explora nuestro catálogo de productos en tiempo real o accede a la sección de administración para gestionar el inventario.
+        </p>
+        <hr class="my-4">
+        <div class="d-flex flex-wrap gap-3">
+            <!-- Nota: Usamos 'catologo' para coincidir con la name="catologo" definida en tu urls.py -->
+            <a href="{% url 'catalogo' %}" class="btn btn-primary btn-lg">
+                <i class="bi bi-grid-3x3-gap-fill me-1"></i> Ver Catálogo Público
+            </a>
+            <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-lg">
+                <i class="bi bi-shield-lock-fill me-1"></i> Área Restringida
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Tarjetas Informativas -->
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm p-3">
+            <div class="card-body text-center">
+                <i class="bi bi-box-seam text-primary display-4 mb-3 d-block"></i>
+                <h5 class="card-title fw-bold">Catálogo en Línea</h5>
+                <p class="card-text text-muted">Consulta la disponibilidad, precios y detalles de nuestros productos en tiempo real.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm p-3">
+            <div class="card-body text-center">
+                <i class="bi bi-shield-check text-success display-4 mb-3 d-block"></i>
+                <h5 class="card-title fw-bold">Seguridad y Perfiles</h5>
+                <p class="card-text text-muted">Acceso restringido con roles diferenciados para Administradores y Asistentes.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm p-3">
+            <div class="card-body text-center">
+                <i class="bi bi-database-check text-warning display-4 mb-3 d-block"></i>
+                <h5 class="card-title fw-bold">Resguardo PostgreSQL</h5>
+                <p class="card-text text-muted">Persistencia garantizada de la información sobre una base relacional robusta.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
